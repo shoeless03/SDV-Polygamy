@@ -216,20 +216,28 @@ namespace Polygamy
                 // NOW KISS
                 var kissFriendshipStatuses = new List<FriendshipStatus>() { FriendshipStatus.Married, FriendshipStatus.Engaged, FriendshipStatus.Dating };
                 if (kissFriendshipStatuses.Contains(Modworks.Player.GetFriendshipStatus(n2.Name)))
-                {
-                    Relationships.Kiss(n2.Name);
+                {                    
+                    Modworks.Log.Trace("Polygamy, go in for a kiss!");
 
-                    // KISS AND THEN TELL ME YOU LOVE ME (10% chance)
-                    if (new Random().Next(20) % 2 == 0)
+                    var didKiss = Relationships.Kiss(n2.Name);
+                    if (!didKiss)
                     {
-                        var dialogue = new Dialogue("I love you babe. :)", n2);
+                        Modworks.Log.Trace("Polygamy, Kiss failed.");
+                        return;
+                    }
+
+                    // KISS AND THEN TELL ME YOU LOVE ME (1/8 chance). Too high? Too low?
+                    var x = new Random().Next(0, 200);
+                    if (x < 25)
+                    {
+                        var kissDialoges = new List<string>() { "Stop it!!", "I love you babe. :)", "Oh stop it!", "Kiss me again!" }; // 0-3
+                        var dialogue = new Dialogue(kissDialoges[new Random().Next(3)], n2);
                         dialogue.CurrentEmotion = Dialogue.dialogueLove;
 
                         n2.CurrentDialogue.Push(dialogue);
 
                         Game1.drawDialogue(n2);
                     }
-                    return;
                 }
             }
         }
