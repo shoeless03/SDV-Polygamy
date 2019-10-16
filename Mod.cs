@@ -230,18 +230,19 @@ namespace Polygamy
                     var x = new Random().Next(0, 200);
                     if (x < 25)
                     {
-                        var kissDialoges = new List<string>()
-                        { 
-                            "I love you babe. :)", 
-                            "Oh stop it!", 
-                            "Kiss me again!", 
-                            "You're the best.", 
-                            "You're lips as so soft...", 
-                            "So, later you want to...?" 
+                        var kissDialogesAndEmotions = new Dictionary<string, string>()
+                        {
+                            { "I love you babe. :)", Dialogue.dialogueHappy },
+                            { "Oh stop it!", Dialogue.dialogueHappy },
+                            { "Kiss me again!", Dialogue.dialogueLove },
+                            { "You're the best.", Dialogue.dialogueHappy },
+                            { "You're lips as so soft...", Dialogue.dialogueLove },
+                            { "So, later you want to...?", Dialogue.dialogueLove }
                         };
 
-                        var dialogue = new Dialogue(kissDialoges[new Random().Next(kissDialoges.Count - 1)], n2);
-                        dialogue.CurrentEmotion = Dialogue.dialogueLove;
+                        var kissDialogueAndEmotion = kissDialogesAndEmotions.ElementAt(new Random().Next(kissDialogesAndEmotions.Count - 1));
+                        var dialogue = new Dialogue(kissDialogueAndEmotion.Key, n2);
+                        dialogue.CurrentEmotion = kissDialogueAndEmotion.Value;
 
                         n2.CurrentDialogue.Push(dialogue);
 
