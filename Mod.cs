@@ -1,4 +1,4 @@
-﻿using StardewModdingAPI;
+using StardewModdingAPI;
 using StardewValley;
 using StardewModdingAPI.Events;
 using System.Collections.Generic;
@@ -208,6 +208,28 @@ namespace Polygamy
                             }
                         }
                     }
+                }
+            }
+            // not holding an item
+            else
+            {
+                // NOW KISS
+                var kissFriendshipStatuses = new List<FriendshipStatus>() { FriendshipStatus.Married, FriendshipStatus.Engaged, FriendshipStatus.Dating };
+                if (kissFriendshipStatuses.Contains(Modworks.Player.GetFriendshipStatus(n2.Name)))
+                {
+                    Relationships.Kiss(n2.Name);
+
+                    // KISS AND THEN TELL ME YOU LOVE ME (10% chance)
+                    if (new Random().Next(20) % 2 == 0)
+                    {
+                        var dialogue = new Dialogue("I love you babe. :)", n2);
+                        dialogue.CurrentEmotion = Dialogue.dialogueLove;
+
+                        n2.CurrentDialogue.Push(dialogue);
+
+                        Game1.drawDialogue(n2);
+                    }
+                    return;
                 }
             }
         }
