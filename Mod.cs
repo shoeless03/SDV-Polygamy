@@ -237,7 +237,8 @@ namespace Polygamy
                             { "Kiss me again!", Dialogue.dialogueLove },
                             { "You're the best.", Dialogue.dialogueHappy },
                             { "You're lips as so soft...", Dialogue.dialogueLove },
-                            { "So, later you want to...?", Dialogue.dialogueLove }
+                            { "So, later you want to...?", Dialogue.dialogueLove },
+                            { "Ok, seriously...?", Dialogue.dialogueAngry }
                         };
 
                         var kissDialogueAndEmotion = kissDialoguesAndEmotions.ElementAt(new Random().Next(kissDialoguesAndEmotions.Count - 1));
