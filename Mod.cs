@@ -230,7 +230,7 @@ namespace Polygamy
                     var x = new Random().Next(0, 200);
                     if (x < 25)
                     {
-                        var kissDialogesAndEmotions = new Dictionary<string, string>()
+                        var kissDialoguesAndEmotions = new Dictionary<string, string>()
                         {
                             { "I love you babe. :)", Dialogue.dialogueHappy },
                             { "Oh stop it!", Dialogue.dialogueHappy },
@@ -240,7 +240,7 @@ namespace Polygamy
                             { "So, later you want to...?", Dialogue.dialogueLove }
                         };
 
-                        var kissDialogueAndEmotion = kissDialogesAndEmotions.ElementAt(new Random().Next(kissDialogesAndEmotions.Count - 1));
+                        var kissDialogueAndEmotion = kissDialoguesAndEmotions.ElementAt(new Random().Next(kissDialoguesAndEmotions.Count - 1));
                         var dialogue = new Dialogue(kissDialogueAndEmotion.Key, n2);
                         dialogue.CurrentEmotion = kissDialogueAndEmotion.Value;
 
