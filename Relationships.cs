@@ -659,7 +659,11 @@ namespace Polygamy
             npc = null;
         }
 
-        // Returns false if kiss fails
+        /// <summary>
+        /// Returns false if kiss fails
+        /// </summary>
+        /// <param name="NPC"></param>
+        /// <returns></returns>
         public bool Kiss(string NPC)
         {
             var npcObject = Game1.getCharacterFromName(NPC);
