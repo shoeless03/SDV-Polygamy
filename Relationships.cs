@@ -1,4 +1,4 @@
-﻿using StardewValley;
+using StardewValley;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -659,7 +659,8 @@ namespace Polygamy
             npc = null;
         }
 
-        public void Kiss(string NPC)
+        // Returns false if kiss fails
+        public bool Kiss(string NPC)
         {
             var npcObject = Game1.getCharacterFromName(NPC);
             var player = Game1.player;
@@ -734,7 +735,7 @@ namespace Polygamy
                             });
                             if (true /* !npcObject.hasBeenKissedToday */)
                             {
-                                player.changeFriendship(10, npcObject);
+                                //player.changeFriendship(10, npcObject); // Not fair with my addition imo
                                 /*
                                 Game1.Multiplayer.broadcastSprites(who.currentLocation, new TemporaryAnimatedSprite("LooseSprites\\Cursors", new Microsoft.Xna.Framework.Rectangle(211, 428, 7, 6), 2000f, 1, 0, new Vector2(getTileX(), getTileY()) * 64f + new Vector2(16f, -64f), flicker: false, flipped: false, 1f, 0f, Color.White, 4f, 0f, 0f, 0f)
                                 {
@@ -770,10 +771,11 @@ namespace Polygamy
                             new FarmerSprite.AnimationFrame(101, 1000, 0, false, player.FacingDirection == 3),
                             new FarmerSprite.AnimationFrame(6, 1, false, player.FacingDirection == 3, Farmer.completelyStopAnimating)
                         }.ToArray());
-                        return;
+                        return true;
                     }
                 }
             }
+            return false;
         }
 
         public void ScanForNPCs()
