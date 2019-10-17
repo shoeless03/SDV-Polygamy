@@ -219,8 +219,7 @@ namespace Polygamy
                 {                    
                     Modworks.Log.Trace("Polygamy, go in for a kiss!");
 
-                    var didKiss = Relationships.Kiss(n2.Name);
-                    if (!didKiss)
+                    if (!Relationships.Kiss(n2.Name))
                     {
                         Modworks.Log.Trace("Polygamy, Kiss failed.");
                         return;
@@ -232,9 +231,9 @@ namespace Polygamy
                     {
                         var kissDialoguesAndEmotions = new Dictionary<string, string>()
                         {
-                            { "I love you babe. :)", Dialogue.dialogueHappy },
+                            { "I love you babe.", Dialogue.dialogueHappy },
                             { "Oh stop it!", Dialogue.dialogueHappy },
-                            { "Kiss me again!", Dialogue.dialogueLove },
+                            { "Kiss me again...", Dialogue.dialogueLove },
                             { "You're the best.", Dialogue.dialogueHappy },
                             { "You're lips as so soft...", Dialogue.dialogueLove },
                             { "So, later you want to...?", Dialogue.dialogueLove },

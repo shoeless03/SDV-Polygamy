@@ -682,60 +682,60 @@ namespace Polygamy
                     if (npcObject.FacingDirection == 3 || npcObject.FacingDirection == 1)
                     {
                         int frame = 28;
-                        bool flag = true;
+                        bool facingDirectionFlag = true;
                         switch (npcObject.Name)
                         {
                             case "Maru":
                                 frame = 28;
-                                flag = false;
+                                facingDirectionFlag = false;
                                 break;
                             case "Harvey":
                                 frame = 31;
-                                flag = false;
+                                facingDirectionFlag = false;
                                 break;
                             case "Leah":
                                 frame = 25;
-                                flag = true;
+                                facingDirectionFlag = true;
                                 break;
                             case "Elliott":
                                 frame = 35;
-                                flag = false;
+                                facingDirectionFlag = false;
                                 break;
                             case "Sebastian":
                                 frame = 40;
-                                flag = false;
+                                facingDirectionFlag = false;
                                 break;
                             case "Abigail":
                                 frame = 33;
-                                flag = false;
+                                facingDirectionFlag = false;
                                 break;
                             case "Penny":
                                 frame = 35;
-                                flag = true;
+                                facingDirectionFlag = true;
                                 break;
                             case "Alex":
                                 frame = 42;
-                                flag = true;
+                                facingDirectionFlag = true;
                                 break;
                             case "Sam":
                                 frame = 36;
-                                flag = true;
+                                facingDirectionFlag = true;
                                 break;
                             case "Shane":
                                 frame = 34;
-                                flag = false;
+                                facingDirectionFlag = false;
                                 break;
                             case "Emily":
                                 frame = 33;
-                                flag = false;
+                                facingDirectionFlag = false;
                                 break;
                         }
-                        bool flag2 = (flag && npcObject.FacingDirection == 3) || (!flag && npcObject.FacingDirection == 1);
+                        bool shouldFlipFlag = (facingDirectionFlag && npcObject.FacingDirection == 3) || (!facingDirectionFlag && npcObject.FacingDirection == 1);
                         if (player.getFriendshipHeartLevelForNPC(npcObject.Name) > 9)
                         {
                             npcObject.Sprite.setCurrentAnimation(new List<FarmerSprite.AnimationFrame>
                             {
-                                new FarmerSprite.AnimationFrame(frame, Game1.IsMultiplayer ? 1010 : 10, false, flag2, npcObject.haltMe, true)
+                                new FarmerSprite.AnimationFrame(frame, Game1.IsMultiplayer ? 1010 : 10, false, shouldFlipFlag, npcObject.haltMe, true)
                             });
                             if (true /* !npcObject.hasBeenKissedToday */)
                             {
@@ -762,7 +762,7 @@ namespace Polygamy
                         }
                         player.CanMove = false;
                         player.FarmerSprite.PauseForSingleAnimation = false;
-                        if ((flag && !flag2) || (!flag && flag2))
+                        if ((facingDirectionFlag && !shouldFlipFlag) || (!facingDirectionFlag && shouldFlipFlag))
                         {
                             player.faceDirection(3);
                         }
