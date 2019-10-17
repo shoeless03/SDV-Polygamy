@@ -219,11 +219,12 @@ namespace Polygamy
                 {                    
                     Modworks.Log.Trace("Polygamy, go in for a kiss!");
 
+                    // TODO: determine if this will fix issue with dialogue showing before animation ends
                     if (!Relationships.Kiss(n2.Name))
                     {
                         Modworks.Log.Trace("Polygamy, Kiss failed.");
                         return;
-                    }
+                    }                    
 
                     // KISS AND THEN TELL ME YOU LOVE ME (1/8 chance). Too high? Too low?
                     var x = new Random().Next(0, 200);
@@ -237,7 +238,7 @@ namespace Polygamy
                             { "You're the best.", Dialogue.dialogueHappy },
                             { "You're lips as so soft...", Dialogue.dialogueLove },
                             { "So, later you want to...?", Dialogue.dialogueLove },
-                            { "Ok, seriously...?", Dialogue.dialogueAngry }
+                            { "Ok, seriously...?", Dialogue.dialogueAngry } // Sorry if you get this one first :P You're unlucky!
                         };
 
                         var kissDialogueAndEmotion = kissDialoguesAndEmotions.ElementAt(new Random().Next(kissDialoguesAndEmotions.Count - 1));
