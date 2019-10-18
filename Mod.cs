@@ -220,7 +220,7 @@ namespace Polygamy
                     Modworks.Log.Trace("Polygamy, go in for a kiss!");
 
                     // TODO: determine if this will fix issue with dialogue showing before animation ends
-                    if (!Relationships.Kiss(n2.Name))
+                    if (!Relationships.TryKiss(n2.Name))
                     {
                         Modworks.Log.Trace("Polygamy, Kiss failed.");
                         return;
@@ -230,13 +230,14 @@ namespace Polygamy
                     var x = new Random().Next(0, 200);
                     if (x < 25)
                     {
+                        Modworks.Log.Trace("Polygamy, You lucky kisser.");
                         var kissDialoguesAndEmotions = new Dictionary<string, string>()
                         {
                             { "I love you babe.", Dialogue.dialogueHappy },
                             { "Oh stop it!", Dialogue.dialogueHappy },
                             { "Kiss me again...", Dialogue.dialogueLove },
                             { "You're the best.", Dialogue.dialogueHappy },
-                            { "You're lips as so soft...", Dialogue.dialogueLove },
+                            { "Your lips as so soft...", Dialogue.dialogueLove },
                             { "So, later you want to...?", Dialogue.dialogueLove },
                             { "Ok, seriously...?", Dialogue.dialogueAngry } // Sorry if you get this one first :P You're unlucky!
                         };
@@ -280,7 +281,7 @@ namespace Polygamy
                 return;
             } else if (parameters[0] == "kiss")
             {
-                Relationships.Kiss(npc.Name);
+                Relationships.TryKiss(npc.Name);
                 return;
             } else if(Game1.getLocationFromName(Game1.player.homeLocation.Value) == Game1.currentLocation)
             {
