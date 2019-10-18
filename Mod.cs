@@ -237,7 +237,7 @@ namespace Polygamy
                             { "Oh stop it!", Dialogue.dialogueHappy },
                             { "Kiss me again...", Dialogue.dialogueLove },
                             { "You're the best.", Dialogue.dialogueHappy },
-                            { "Your lips as so soft...", Dialogue.dialogueLove },
+                            { "Your lips are so soft...", Dialogue.dialogueLove },
                             { "So, later you want to...?", Dialogue.dialogueLove },
                             { "Ok, seriously...?", Dialogue.dialogueAngry } // Sorry if you get this one first :P You're unlucky!
                         };
