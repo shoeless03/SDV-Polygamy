@@ -76,7 +76,8 @@ namespace Polygamy
 
         private void Events_NPCCheckAction(object sender, bwdyworks.Events.NPCCheckActionEventArgs args)
         {
-            if (args.Cancelled) return; //someone else already ate this one
+            if (args.Cancelled) 
+                return; //someone else already ate this one
 
             //do we care about this NPC for our purposes?
             var targetedNPCs = Modworks.NPCs.GetAllCharacterNames(true, false, args.Farmer.currentLocation);
@@ -214,21 +215,20 @@ namespace Polygamy
             // not holding an item
             else
             {
-                // NOW KISS
+                // NOW KISS (Kissing available after dating)
                 var kissFriendshipStatuses = new List<FriendshipStatus>() { FriendshipStatus.Married, FriendshipStatus.Engaged, FriendshipStatus.Dating };
                 if (kissFriendshipStatuses.Contains(Modworks.Player.GetFriendshipStatus(n2.Name)))
                 {                    
                     Modworks.Log.Trace("Polygamy, go in for a kiss!");
 
-                    if (!Relationships.TryKiss(n2.Name))
+                    if (!Relationships.TryKiss(n2.Name, 8))
                     {
                         Modworks.Log.Trace("Polygamy, Kiss failed.");
                         return;
                     }
 
                     // KISS AND THEN TELL ME YOU LOVE ME (1/8 chance). Too high? Too low?
-                    var random = new Random();
-                    var x = random.Next(0, 200);
+                    var x = Modworks.RNG.Next(0, 200);
                     if (x < 25)
                     {
                         Modworks.Log.Trace("Polygamy, You lucky kisser.");
@@ -243,7 +243,7 @@ namespace Polygamy
                             { "Ok, seriously...?", Dialogue.dialogueAngry } // Sorry if you get this one first :P You're unlucky! TODO: Make it so bad ones can only come 2nd-n (n > 2)
                         };
 
-                        var kissDialogueAndEmotion = kissDialoguesAndEmotions.ElementAt(random.Next(kissDialoguesAndEmotions.Count - 1));
+                        var kissDialogueAndEmotion = kissDialoguesAndEmotions.ElementAt(Modworks.RNG.Next(kissDialoguesAndEmotions.Count - 1));
                         var dialogue = new Dialogue(kissDialogueAndEmotion.Key, n2);
                         dialogue.CurrentEmotion = kissDialogueAndEmotion.Value;
 
@@ -282,7 +282,7 @@ namespace Polygamy
                 return;
             } else if (parameters[0] == "kiss")
             {
-                Relationships.TryKiss(npc.Name);
+                Relationships.TryKiss(npc.Name, 10);
                 return;
             } else if(Game1.getLocationFromName(Game1.player.homeLocation.Value) == Game1.currentLocation)
             {
@@ -415,7 +415,7 @@ namespace Polygamy
                     {
                         //if (lastPrimarySpouse != null && spouseName == lastPrimarySpouse.Name) continue;
                         //random dogpile in bed
-                        if (Modworks.RNG.Next(100) < Math.Max(100 - Relationships.Spouses.Count * 7, 3))
+                        if (true)//Modworks.RNG.Next(100) < Math.Max(100 - Relationships.Spouses.Count * 7, 3))
                         {
                             var npcObject = Game1.getCharacterFromName(spouseName);
                             Modworks.NPCs.Warp(npcObject, farmHouseName, (Game1.getLocationFromName(farmHouseName) as StardewValley.Locations.FarmHouse).getBedSpot());
@@ -495,7 +495,12 @@ namespace Polygamy
         }
 
 
-
+        /// <summary>
+        /// ////////////////////////////////
+        /// </summary>
+        /// <param name="l"></param>
+        /// <param name="npc"></param>
+        /// <param name="poly"></param>
         public void FixSpouseSchedule(GameLocation l, NPC npc, bool poly = false)
         {
             if (poly)
@@ -510,6 +515,9 @@ namespace Polygamy
             } else
             {
                 string text = Game1.shortDayNameFromDayOfSeason(Game1.dayOfMonth);
+
+
+
                 if ((npc.Name.Equals("Penny") && (text.Equals("Tue") || text.Equals("Wed") || text.Equals("Fri"))) || (npc.Name.Equals("Maru") && (text.Equals("Tue") || text.Equals("Thu"))) || (npc.Name.Equals("Harvey") && (text.Equals("Tue") || text.Equals("Thu"))))
                 {
                     npc.setNewDialogue("MarriageDialogue", "jobLeave_", -1, add: false, clearOnMovement: true);
