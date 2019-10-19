@@ -1,11 +1,12 @@
-using StardewModdingAPI;
-using StardewValley;
-using StardewModdingAPI.Events;
-using System.Collections.Generic;
-using System;
 using Microsoft.Xna.Framework;
-using Modworks = bwdyworks.Modworks;
+using StardewModdingAPI;
+using StardewModdingAPI.Events;
+using StardewValley;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+
+using Modworks = bwdyworks.Modworks;
 
 namespace Polygamy
 {
@@ -219,15 +220,15 @@ namespace Polygamy
                 {                    
                     Modworks.Log.Trace("Polygamy, go in for a kiss!");
 
-                    // TODO: determine if this will fix issue with dialogue showing before animation ends
                     if (!Relationships.TryKiss(n2.Name))
                     {
                         Modworks.Log.Trace("Polygamy, Kiss failed.");
                         return;
-                    }                    
+                    }
 
                     // KISS AND THEN TELL ME YOU LOVE ME (1/8 chance). Too high? Too low?
-                    var x = new Random().Next(0, 200);
+                    var random = new Random();
+                    var x = random.Next(0, 200);
                     if (x < 25)
                     {
                         Modworks.Log.Trace("Polygamy, You lucky kisser.");
@@ -239,10 +240,10 @@ namespace Polygamy
                             { "You're the best.", Dialogue.dialogueHappy },
                             { "Your lips are so soft...", Dialogue.dialogueLove },
                             { "So, later you want to...?", Dialogue.dialogueLove },
-                            { "Ok, seriously...?", Dialogue.dialogueAngry } // Sorry if you get this one first :P You're unlucky!
+                            { "Ok, seriously...?", Dialogue.dialogueAngry } // Sorry if you get this one first :P You're unlucky! TODO: Make it so bad ones can only come 2nd-n (n > 2)
                         };
 
-                        var kissDialogueAndEmotion = kissDialoguesAndEmotions.ElementAt(new Random().Next(kissDialoguesAndEmotions.Count - 1));
+                        var kissDialogueAndEmotion = kissDialoguesAndEmotions.ElementAt(random.Next(kissDialoguesAndEmotions.Count - 1));
                         var dialogue = new Dialogue(kissDialogueAndEmotion.Key, n2);
                         dialogue.CurrentEmotion = kissDialogueAndEmotion.Value;
 

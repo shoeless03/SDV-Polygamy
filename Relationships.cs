@@ -675,7 +675,7 @@ namespace Polygamy
                 {
                     npcObject.faceDirection(-3);
                 }
-                if (npcObject.Sprite.CurrentAnimation == null && !npcObject.hasTemporaryMessageAvailable() && npcObject.CurrentDialogue.Count == 0 && Game1.timeOfDay < 2200 && !npcObject.isMoving() && player.ActiveObject == null)
+                if (npcObject.Sprite.CurrentAnimation == null && !npcObject.hasTemporaryMessageAvailable() && npcObject.CurrentDialogue.Count == 0 /* && Game1.timeOfDay < 2200*/ && !npcObject.isMoving() && player.ActiveObject == null)
                 {
                     npcObject.faceGeneralDirection(player.getStandingPosition());
                     player.faceGeneralDirection(npcObject.getStandingPosition());
@@ -777,8 +777,21 @@ namespace Polygamy
                         }.ToArray());
                         return true;
                     }
+                    Modworks.Log.Trace($"Polygamy, Kiss failed: npcObject.FacingDirection == 3: {npcObject.FacingDirection == 3} npcObject.FacingDirection == 1: {npcObject.FacingDirection == 1}");
+                }
+                else
+                {
+                    Modworks.Log.Trace($"Polygamy, Kiss failed:{Environment.NewLine} npcObject.Sprite.CurrentAnimation == null: {npcObject.Sprite.CurrentAnimation == null}. {Environment.NewLine}" +
+                        $"!npcObject.hasTemporaryMessageAvailable(): {!npcObject.hasTemporaryMessageAvailable()}. {Environment.NewLine}" +
+                        $"npcObject.CurrentDialogue.Count == 0: {npcObject.CurrentDialogue.Count == 0}. {Environment.NewLine}" +
+                        $"Game1.timeOfDay < 2200: {Game1.timeOfDay < 2200} {Environment.NewLine}" +
+                        $"!npcObject.isMoving(): {!npcObject.isMoving()}. {Environment.NewLine}" +
+                        $"player.ActiveObject == null: {player.ActiveObject == null}.");
                 }
             }
+            else
+                Modworks.Log.Trace("Polygamy, Kiss failed: Not Local Player");
+
             return false;
         }
 
